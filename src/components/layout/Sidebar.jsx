@@ -3,7 +3,7 @@ import {
   LayoutDashboard,
   Users,
   CreditCard,
-  Settings,
+  Settings,Calendar
 } from "lucide-react";
 
 const menu = [
@@ -27,6 +27,11 @@ const menu = [
     path: "/settings",
     icon: Settings,
   },
+{
+  label: "Attendance",
+  path: "/attendance",
+  icon: Calendar,
+}
 ];
 
 export default function Sidebar() {
