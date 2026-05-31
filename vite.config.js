@@ -25,18 +25,45 @@ export default defineConfig({
       },
     },
   },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
-          'query-vendor': ['@tanstack/react-query', 'axios'],
-          'ui-vendor': ['framer-motion', 'lucide-react'],
-        },
+ build: {
+  rollupOptions: {
+    output: {
+      manualChunks(id) {
+        if (id.includes('node_modules')) {
+          if (
+            id.includes('react') ||
+            id.includes('react-dom') ||
+            id.includes('react-router-dom')
+          ) {
+            return 'react-vendor';
+          }
+
+          if (
+            id.includes('three') ||
+            id.includes('@react-three/fiber') ||
+            id.includes('@react-three/drei')
+          ) {
+            return 'three-vendor';
+          }
+
+          if (
+            id.includes('@tanstack/react-query') ||
+            id.includes('axios')
+          ) {
+            return 'query-vendor';
+          }
+
+          if (
+            id.includes('framer-motion') ||
+            id.includes('lucide-react')
+          ) {
+            return 'ui-vendor';
+          }
+        }
       },
     },
-    sourcemap: false,
-    minify: 'esbuild',
   },
+  sourcemap: false,
+  minify: 'esbuild',
+},
 });
